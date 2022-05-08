@@ -19,15 +19,18 @@ function computerPlay(){
 }
 
 function playRound(playerSelection, computerSelection){
+    //lose -1
+    //tie 0
+    //win 1
     if (playerSelection.toUpperCase() === "ROCK"){
         if (computerSelection.toUpperCase() === "ROCK"){
-            return "A Tie! Play Again"
+            return 0;
         }
         else if (computerSelection.toUpperCase() === "PAPER"){
-            return "You Lose! PAPER beats ROCK"
+            return -1;
         }
         else if (computerSelection.toUpperCase() === "SCISSORS"){
-            return "You Win! ROCK beats SCISSORS"
+            return 1;
         }
         else{
             console.error("ERROR");
@@ -36,13 +39,13 @@ function playRound(playerSelection, computerSelection){
     }
     else if (playerSelection.toUpperCase() === "PAPER"){
         if (computerSelection.toUpperCase() === "ROCK"){
-            return "You Win! PAPER beats ROCK"
+            return 1;
         }
         else if (computerSelection.toUpperCase() === "PAPER"){
-            return "A Tie! Play Again"
+            return 0;
         }
         else if (computerSelection.toUpperCase() === "SCISSORS"){
-            return "You Lose! SCISSORS beats PAPER"
+            return -1;
         }
         else{
             console.error("ERROR");
@@ -51,13 +54,13 @@ function playRound(playerSelection, computerSelection){
     }
     else if (playerSelection.toUpperCase() === "SCISSORS"){
         if (computerSelection.toUpperCase() === "ROCK"){
-            return "You Lose! ROCK beats SCISSORS"
+            return -1;
         }
         else if (computerSelection.toUpperCase() === "PAPER"){
-            return "You Win! SCISSORS beats PAPER"
+            return 1;
         }
         else if (computerSelection.toUpperCase() === "SCISSORS"){
-            return "A Tie! Play Again"
+            return 0;
         }
         else{
             console.error("ERROR");
@@ -70,6 +73,41 @@ function playRound(playerSelection, computerSelection){
     }
 }
 
+function checkResult(result) {
+    if (result === -1){
+        displayResult("You lose!");
+    }
+    else if (result === 0){
+        displayResult("You tied!");
+    }
+    else if (result === 1){
+        displayResult("You win!");
+    }
+    else {
+        console.error("ERROR");
+    }
+}
+
+function displayResult(result){
+    const res = document.createElement('div');
+    res.textContent = result;
+
+    const cont = document.querySelector('#container');
+    cont.appendChild(res);
+}
+
+const buttons = document.querySelectorAll('button');
+
+buttons.forEach((button) => {
+    button.addEventListener('click', () => {
+        let result = playRound(button.id, computerPlay());
+        checkResult(result);
+    });
+});
+
+
+
+/*
 function game(){
     let playerWins = 0;
     let computerWins = 0;
@@ -91,3 +129,4 @@ function game(){
 }
 
 game();
+*/
